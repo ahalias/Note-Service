@@ -2,7 +2,9 @@ import rootReducer from "./slices/rootReducer";
 import store from "./slices/store";
 
 export interface NewNoteType {
-    text: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    text: any
+    tags: string[]
 }
 
 export interface NoteType extends NewNoteType { 
@@ -13,6 +15,18 @@ export interface NotesType {
     notes: NoteType[]
 }
 
+export interface TagType {
+    text: string
+}
+
+export interface TagsType {
+    tags: TagType[]
+}
+
+export interface NotesProps {
+    notes: NotesType;
+    tags: TagsType; 
+  }
 
 
 export type AppDispatch = typeof store.dispatch
