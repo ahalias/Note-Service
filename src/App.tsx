@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
 import './App.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { NotesType, RootState } from './types';
+import { addNote, editNote, deleteNote, loadNotes } from './slices/slice';
+import Notes from './components/Notes';
+import NoteAddForm from './components/NoteAddForm';
+
 
 function App() {
+const notes: NotesType = useSelector((state: RootState) => state.notes)
+const dispatch = useDispatch()
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      Notes:
+    <Notes notes={notes} />
+    Add note:
+    <NoteAddForm notes={notes} />
     </div>
-  );
+  )
 }
 
 export default App;
