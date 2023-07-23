@@ -5,6 +5,8 @@ import { NotesType, RootState, TagsType } from './types';
 import { addNote, editNote, deleteNote, loadNotes } from './slices/slice';
 import Notes from './components/Notes';
 import NoteAddForm from './components/NoteAddForm';
+import { Button, Typography, Container } from '@mui/material';
+
 
 
 function App() {
@@ -14,12 +16,20 @@ const dispatch = useDispatch()
 
 
   return (
-    <div>
+    <Container className='cover'>
+           <Container>
+       <Typography variant="h5" component="h1" >
       Notes:
+      </Typography>
     <Notes notes={notes} tags={tags} />
+    </Container>
+    <Container>
+    <Typography variant="h5" component="h1">
     Add note:
+    </Typography>
     <NoteAddForm notes={notes} tags={tags} />
-    </div>
+    </Container>
+    </Container>
   )
 }
 

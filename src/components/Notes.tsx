@@ -7,6 +7,8 @@ import noteService from "../services/noteService";
 import DOMPurify from 'dompurify';
 import { addTags, deleteTags } from "../slices/tagSlice";
 import { processHashTags } from "../utils/hashTags";
+import { Button, Card, CardContent, Container, IconButton, Typography } from "@mui/material";
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 const Notes: React.FC<NotesProps> = ({ notes, tags }) => {
@@ -114,51 +116,62 @@ const handleInput = (event: React.FormEvent<HTMLDivElement>, note: NoteType) => 
 
       filteredNotes = filteredNotes.length > 0 ? filteredNotes : notes.notes
     
-    return (
+      return (
         <div>
-
-
-        {filteredNotes.map((note: NoteType) => 
-        <div key ={note.id}>
+        
+        
+        <div className='grid-container'>
+        
+        
+        {filteredNotes.map((note) => (
+        <Card key={note.id} className="card" elevation={3} style={{backgroundColor: "#EAECF0"}}>
+        <IconButton size="small" className="delete-button" color="error" onClick={() => handleDeleteNote(note)}>
+        <ClearIcon />
+        </IconButton>
+        <CardContent>
+        <Typography>
         <div
-        contentEditable
-        style={{
-          border: '1px solid #ccc',
-          padding: '10px',
-          minHeight: '50px',
-        }}
-        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(note.text) }} 
-        onBlur={(event) => handleBlur(event, note)}
-        onKeyDown={(event) => handleKeyDown(event, note)} 
-        onInput={(event) => handleInput(event, note)}
-      >
+className='item'
+contentEditable
+dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(note.text) }}
+onBlur={(event) => handleBlur(event, note)}
+onKeyDown={(event) => handleKeyDown(event, note)}
+onInput={(event) => handleInput(event, note)}
+>
 </div>
-        <button type="submit" onClick={() => handleDeleteNote(note)}>delete</button>
+        </Typography>
+        </CardContent>
+        </Card>
+        
+        
+        ))}
         </div>
-        )}
-
-        <div>
-          <p>
+        <p>
+        <Container>
+        
+        
         {
-            [...new Set(tags.tags)].map((tag: TagType, index: number) =>
-            <span style={{
-              margin: "3px",
-              color: selectedTags.has(tag as unknown as string) ? "blue" : "black",
-              cursor: "pointer",
-            }} key={index}
-            
-              onClick={() => handleTagFilter(tag as unknown as string)}
-            >
-               {String(tag)} 
-              </span>
-            )
-          }
-          </p>
+        [...new Set(tags.tags)].map((tag: TagType, index: number) =>
+        <span style={{
+        margin: "3px",
+        color: selectedTags.has(tag as unknown as string) ? "blue" : "black",
+        cursor: "pointer",
+        }} key={index}
+        onClick={() => handleTagFilter(tag as unknown as string)}
+        >
+        {String(tag)}
+        </span>
+        )
+        }
+        </Container>
+        
+        
+        </p>
         </div>
-      
-        </div>
-    );
-};
-
-
-export default Notes;
+        );
+        };
+        
+        
+        
+        
+        export default Notes;

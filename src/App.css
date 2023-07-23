@@ -36,3 +36,46 @@
     transform: rotate(360deg);
   }
 }
+
+
+.cover {
+  position: relaative;
+  padding: 10px;
+  margin: 10px;
+  background-color: #fcfafa;
+  width: 100%;
+  min-height: 100%;
+}
+
+.card {
+  min-height: 250px;
+  max-height: 250px;
+}
+
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  min-height: 450px;
+}
+
+.item {
+  position: relative;
+  min-height: 170px;
+}
+
+.itemediting {
+  height: 1px;
+  color: black;
+  background-color: black; 
+}
+
+
+.delete-button {
+  position: relative;
+  bottom: 0px; 
+  right: 0px; 
+  left: 0px;
+}
+

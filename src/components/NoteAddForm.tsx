@@ -7,6 +7,8 @@ import noteService from "../services/noteService";
 import { addTags, deleteTags } from "../slices/tagSlice";
 import { processHashTags } from "../utils/hashTags";
 import { v4 as uuidv4 } from 'uuid';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+import { Button } from "@mui/material";
 
 
 
@@ -60,7 +62,9 @@ const NoteAddForm: React.FC<NotesProps> = ({ notes, tags }) => {
     return (
         <div>
                 <form onSubmit={handleSubmit}>
-                    <textarea
+                    <TextareaAutosize
+                    aria-label="minimum height"
+                    placeholder="Enter your text here..."
                     name='noteText'
                     value={noteText.text}
                     onChange={handleChange} 
@@ -68,13 +72,13 @@ const NoteAddForm: React.FC<NotesProps> = ({ notes, tags }) => {
                         border: '1px solid #ccc',
                         padding: '10px',
                         minHeight: '50px',
-                        width: '100%',
+                        width: '80%',
                         resize: 'both',
                     }}
                     
                     />
                     <br/>
-                    <button type="submit">Submit</button>
+                    <Button color="primary" variant='contained' type="submit">Submit</Button>
                     
 </form>
 
