@@ -28,6 +28,10 @@ export interface NotesProps {
     tags: TagsType; 
   }
 
+  export interface SimpleNotesProps {
+    notes: NotesType;
+  }
+
 
 export type AppDispatch = typeof store.dispatch
 

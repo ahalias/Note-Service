@@ -24,7 +24,7 @@ const tags: TagsType = useSelector((state: RootState) => state.tags)
     <Typography variant="h5" component="h1">
     Add note:
     </Typography>
-    <NoteAddForm notes={notes} tags={tags} />
+    <NoteAddForm notes={notes} />
     </Container>
     </Container>
   )

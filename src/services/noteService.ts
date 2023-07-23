@@ -1,4 +1,4 @@
-import { NoteType, NotesType } from "../types";
+import { NotesType } from "../types";
 
 
 const addNotesToLocalStorage = (notes: NotesType) => {

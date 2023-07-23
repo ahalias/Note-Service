@@ -6,15 +6,14 @@ import { useDispatch } from "react-redux";
 import noteService from "../services/noteService";
 import DOMPurify from 'dompurify';
 import { addTags, deleteTags } from "../slices/tagSlice";
-import { processHashTags } from "../utils/hashTags";
 import { Card, CardContent, Container, IconButton, Typography } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
+import { colorHashTags } from "../utils/tags";
 
 
 const Notes: React.FC<NotesProps> = ({ notes, tags }) => {
 
     const dispatch = useDispatch()
-    const [content, setContent] = useState('');
     const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
     
     useEffect(() => {
@@ -52,17 +51,6 @@ const handleDeleteNote = (note: NoteType) => {
   }
 }
 
-const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>, note: NoteType) => {
-  const { key } = event;
-  if (key === 'ArrowLeft' || key === 'ArrowRight' || key === 'ArrowUp' || key === 'ArrowDown') {
-    event.preventDefault();
-  }
-}
-
-
-const handleInput = (event: React.FormEvent<HTMLDivElement>, note: NoteType) => {
-  return 1
-}
 
 
 
@@ -73,7 +61,7 @@ const handleInput = (event: React.FormEvent<HTMLDivElement>, note: NoteType) => 
         const tags = updatedContent.match(regex) || [];
         const newTags = tags.map((tag) => tag.trim());
 
-        updatedContent = processHashTags(updatedContent).text
+        updatedContent = colorHashTags(updatedContent).text
 
 
 
@@ -87,7 +75,6 @@ const handleInput = (event: React.FormEvent<HTMLDivElement>, note: NoteType) => 
         tagsToAdd.forEach((tag) => {
           dispatch(addTags(tag as unknown as TagType)); 
         });
-            setContent(updatedContent);
             const noteToAdd = {id: note.id, text: updatedContent, tags: newTags}
             dispatch(editNote(noteToAdd))
             const editedNotes = notes.notes.map((newNote: NoteType) => newNote.id === noteToAdd.id ? noteToAdd : newNote);
@@ -135,8 +122,6 @@ className='item'
 contentEditable
 dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(note.text) }}
 onBlur={(event) => handleBlur(event, note)}
-onKeyDown={(event) => handleKeyDown(event, note)}
-onInput={(event) => handleInput(event, note)}
 >
 </div>
         </Typography>
@@ -175,3 +160,4 @@ onInput={(event) => handleInput(event, note)}
         
         
         export default Notes;
+

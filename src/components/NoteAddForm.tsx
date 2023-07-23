@@ -1,18 +1,18 @@
 /* eslint-disable react/prop-types */
 import { useState, ChangeEvent, SyntheticEvent } from "react";
-import { AppDispatch, NewNoteType, NotesType, NotesProps, TagType } from "../types";
+import { AppDispatch, NewNoteType, NotesType, TagType, SimpleNotesProps } from "../types";
 import { useDispatch } from "react-redux";
 import { addNote } from "../slices/slice";
 import noteService from "../services/noteService";
 import { addTags, deleteTags } from "../slices/tagSlice";
-import { processHashTags } from "../utils/hashTags";
 import { v4 as uuidv4 } from 'uuid';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { Button } from "@mui/material";
+import { colorHashTags } from "../utils/tags";
 
 
 
-const NoteAddForm: React.FC<NotesProps> = ({ notes, tags }) => {
+const NoteAddForm: React.FC<SimpleNotesProps> = ({ notes }) => {
 
     const dispatch = useDispatch<AppDispatch>()
 
@@ -23,7 +23,7 @@ const NoteAddForm: React.FC<NotesProps> = ({ notes, tags }) => {
 
     const handleSubmit = (event: SyntheticEvent) => {
         event.preventDefault();
-        const { text: coloratedHashTags, } = processHashTags(noteText.text)
+        const { text: coloratedHashTags, } = colorHashTags(noteText.text)
         const newId = uuidv4();
         const noteToAdd = {id: newId, text: coloratedHashTags, tags: noteText.tags}
         dispatch(addNote(noteToAdd));
@@ -36,14 +36,12 @@ const NoteAddForm: React.FC<NotesProps> = ({ notes, tags }) => {
 
 
     const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+      
         const text = event.currentTarget.value
         const regex = /#[^\s]+/g;
         const tags = text.match(regex) || [];
         const newTags = tags.map((tag) => tag.trim());
         
-
-
-
     const tagsToDelete = noteText.tags.filter((tag) => !newTags.includes(tag));
     tagsToDelete.forEach((tag) => {
       dispatch(deleteTags(tag as unknown as TagType)); 
