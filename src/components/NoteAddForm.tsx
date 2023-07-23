@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import { useState, ChangeEvent, SyntheticEvent, useEffect } from "react";
+import { useState, ChangeEvent, SyntheticEvent } from "react";
 import { AppDispatch, NewNoteType, NotesType, NotesProps, TagType } from "../types";
 import { useDispatch } from "react-redux";
-import { addNewNote, addNote } from "../slices/slice";
+import { addNote } from "../slices/slice";
 import noteService from "../services/noteService";
 import { addTags, deleteTags } from "../slices/tagSlice";
 import { processHashTags } from "../utils/hashTags";

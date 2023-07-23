@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
-import { SyntheticEvent, useEffect, useState } from "react";
-import { NoteType, NotesType, TagType, TagsType, NotesProps } from "../types";
+import { useEffect, useState } from "react";
+import { NoteType, NotesType, TagType, NotesProps } from "../types";
 import { deleteNote, editNote, loadNotes } from "../slices/slice";
 import { useDispatch } from "react-redux";
 import noteService from "../services/noteService";
 import DOMPurify from 'dompurify';
 import { addTags, deleteTags } from "../slices/tagSlice";
 import { processHashTags } from "../utils/hashTags";
-import { Button, Card, CardContent, Container, IconButton, Typography } from "@mui/material";
+import { Card, CardContent, Container, IconButton, Typography } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
 
 

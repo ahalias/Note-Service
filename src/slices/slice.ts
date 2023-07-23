@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppDispatch, NewNoteType, NotesType, NoteType, RootState } from '../types';
-import noteService from '../services/noteService';
-import { useSelector } from 'react-redux';
+import { NotesType, NoteType } from '../types';
 
 
 
@@ -35,12 +33,7 @@ const noteSlice = createSlice({
 });
 
 
-export const addNewNote = (note: NoteType, notes: NotesType) => {
-    return async (dispatch: AppDispatch) => {
-      dispatch(addNote(note));
 
-    };
-  };
 
 export const { addNote, editNote, deleteNote, loadNotes } = noteSlice.actions;
 export default noteSlice.reducer;
